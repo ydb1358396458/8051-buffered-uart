@@ -148,5 +148,6 @@ void uart_print(char* p_string)
 void uart_println(char* p_string)
 {
     uart_print(p_string);
-    uart_print("rn");
+    uart_write('\r');
+	uart_write('\n');
 }
