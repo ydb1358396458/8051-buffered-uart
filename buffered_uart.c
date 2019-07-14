@@ -71,9 +71,8 @@ static void on_uart_interrupt() interrupt INTERRUPT_NO
 void uart_init(uint16 p_baud,uint8* p_buffer,uint8 p_capacity)
 {
     uint8 t_timer=0;
-    #define SWITCH_TIMER(baud)
-        if(p_baud==baud)
-            t_timer=CLK_FREQ_100HZ/192*100/baud;
+    #define SWITCH_TIMER(baud) {if(p_baud==baud) \
+            t_timer=CLK_FREQ_100HZ/192*100/baud;}
     SWITCH_TIMER(300)
     SWITCH_TIMER(600)
     SWITCH_TIMER(1200)
@@ -149,5 +148,6 @@ void uart_print(char* p_string)
 void uart_println(char* p_string)
 {
     uart_print(p_string);
-    uart_print("rn");
+    uart_write('\r');
+	uart_write('\n');
 }
